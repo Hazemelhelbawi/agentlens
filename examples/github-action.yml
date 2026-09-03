@@ -1,0 +1,21 @@
+name: AgentLens
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  agentlens:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hazemelhelbawi/agentlens@v1
+        with:
+          url: https://example.com
+          fail-under: 0
+          comment: true
+          annotations: true
+          pages: 0

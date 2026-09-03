@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [],
+  "references": [
+    { "path": "./packages/shared" },
+    { "path": "./packages/crawler" },
+    { "path": "./packages/analyzer" },
+    { "path": "./packages/scoring" },
+    { "path": "./packages/core" },
+    { "path": "./packages/ai" },
+    { "path": "./action" },
+    { "path": "./cli" }
+  ]
+}

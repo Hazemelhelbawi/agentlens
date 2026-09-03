@@ -1,0 +1,38 @@
+name: New Analyzer Rule
+description: Propose a deterministic analyzer rule
+title: "rule: "
+labels: ["analyzer", "good first issue"]
+body:
+  - type: input
+    id: rule_id
+    attributes:
+      label: Rule id
+      placeholder: missing-canonical
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - crawlability
+        - content-access
+        - semantic-html
+        - structured-data
+        - llm-discoverability
+        - agent-ux
+        - technical-seo
+    validations:
+      required: true
+  - type: textarea
+    id: check
+    attributes:
+      label: What should it check?
+      description: Inputs, pass/fail conditions, and how points are earned. Must be deterministic.
+    validations:
+      required: true
+  - type: textarea
+    id: fixture
+    attributes:
+      label: Fixture idea
+      description: HTML or robots.txt that should pass and fail.

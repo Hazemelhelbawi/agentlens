@@ -1,0 +1,23 @@
+name: Website Compatibility
+description: A real website is analyzed incorrectly
+labels: ["analyzer", "help wanted"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Public URL
+      placeholder: https://example.com
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is wrong?
+      description: Which finding is incorrect, and what should it have reported? Do not claim official SEO rankings.
+    validations:
+      required: true
+  - type: textarea
+    id: html
+    attributes:
+      label: Relevant HTML or headers
+      description: Optional excerpt. No credentials.

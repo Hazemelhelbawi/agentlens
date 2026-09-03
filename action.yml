@@ -1,0 +1,43 @@
+name: AgentLens
+description: See how AI agents see your website. Heuristic AI-readiness analysis for any URL.
+author: hazemelhelbawi
+branding:
+  icon: eye
+  color: purple
+
+inputs:
+  url:
+    description: Public http(s) URL to analyze
+    required: true
+  fail-under:
+    description: Fail the job when the heuristic score is below this threshold (0-100). 0 disables the gate.
+    required: false
+    default: "0"
+  comment:
+    description: Create or update a pull request comment with the report
+    required: false
+    default: "true"
+  annotations:
+    description: Emit file annotations when a finding can be mapped to a repository file
+    required: false
+    default: "true"
+  pages:
+    description: Extra same-origin pages to fetch beyond the homepage (0-50). Default is homepage plus well-known files only.
+    required: false
+    default: "0"
+  github-token:
+    description: Token used to create or update PR comments
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  score:
+    description: Heuristic AI readiness score (0-100)
+  grade:
+    description: Grade label (poor, needs-work, fair, good, excellent)
+  json:
+    description: Full analysis JSON
+
+runs:
+  using: node20
+  main: action/dist/index.cjs

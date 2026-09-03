@@ -1,0 +1,36 @@
+- name: good first issue
+  color: 7057ff
+  description: Good for newcomers
+- name: help wanted
+  color: 008672
+  description: Extra attention is needed
+- name: analyzer
+  color: ffd43b
+  description: Analyzer rules
+- name: crawler
+  color: ffa94d
+  description: Fetching, robots, sitemaps, SSRF
+- name: scoring
+  color: 74c0fc
+  description: Weights, grades, fail-under
+- name: github-action
+  color: 22863a
+  description: GitHub Action, comments, summaries
+- name: cli
+  color: 6f42c1
+  description: Command-line interface
+- name: web
+  color: 0366d6
+  description: Next.js app, badges, reports
+- name: documentation
+  color: 0075ca
+  description: README and docs
+- name: security
+  color: d73a4a
+  description: Crawler security and SSRF
+- name: bug
+  color: d73a4a
+  description: Something is broken
+- name: enhancement
+  color: a2eeef
+  description: New feature

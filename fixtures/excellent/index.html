@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Acme Analytics — Product documentation</title>
+    <meta name="description" content="Acme Analytics is a documentation site with clear structure, canonical URLs, and machine-readable metadata for humans and agents." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://example.com/" />
+    <meta property="og:title" content="Acme Analytics" />
+    <meta property="og:description" content="Documentation for Acme Analytics." />
+    <meta property="og:url" content="https://example.com/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Acme Analytics" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "name": "Acme",
+            "url": "https://example.com"
+          },
+          {
+            "@type": "WebSite",
+            "name": "Acme Analytics",
+            "url": "https://example.com"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/docs">Documentation</a>
+        <a href="/pricing">Pricing plans</a>
+        <a href="/blog">Engineering blog</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Acme Analytics documentation</h1>
+      <p>
+        Acme Analytics helps teams understand product usage. This page explains installation,
+        authentication, and how to query events from the public API.
+      </p>
+      <section>
+        <h2>Getting started</h2>
+        <p>Install the CLI, authenticate with an API token, then run your first query.</p>
+        <h3>Installation</h3>
+        <p>Download the binary or install from npm. The CLI works on macOS, Linux, and Windows.</p>
+      </section>
+      <article>
+        <h2>API overview</h2>
+        <p>Every request uses HTTPS. Responses are JSON. Errors include a stable machine-readable code.</p>
+        <img src="/chart.png" alt="Example usage chart" />
+      </article>
+    </main>
+    <aside>Related: query cookbook</aside>
+    <footer>
+      <a href="/docs">Read the documentation</a>
+    </footer>
+  </body>
+</html>

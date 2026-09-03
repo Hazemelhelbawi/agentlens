@@ -1,0 +1,4 @@
+# Acme Analytics
+> Full documentation dump for language models.
+
+- [Home](https://example.com/): Landing page

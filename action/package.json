@@ -1,0 +1,16 @@
+{
+  "name": "@agentlens/action",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../scripts/bundle-action.mjs",
+    "typecheck": "tsc -b --pretty false"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "@agentlens/core": "workspace:*",
+    "@agentlens/shared": "workspace:*"
+  }
+}

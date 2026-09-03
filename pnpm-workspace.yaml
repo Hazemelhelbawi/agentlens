@@ -1,0 +1,5 @@
+packages:
+  - "packages/*"
+  - "action"
+  - "cli"
+  - "apps/*"

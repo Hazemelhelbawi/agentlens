@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security report
+    url: https://github.com/hazemelhelbawi/agentlens/security/advisories/new
+    about: SSRF and other vulnerabilities — do not file a public issue

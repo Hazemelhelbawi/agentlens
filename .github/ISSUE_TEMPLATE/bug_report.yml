@@ -1,0 +1,36 @@
+name: Bug Report
+description: Report incorrect analysis, crawler bugs, or Action/CLI failures
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Expected vs actual behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: URL (if public), CLI command, or Action YAML. Do not include secrets.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: commit SHA or tag
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - analyzer
+        - crawler
+        - scoring
+        - github-action
+        - cli
+        - web
+        - documentation
+        - security

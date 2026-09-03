@@ -1,0 +1,21 @@
+{
+  "name": "agentlens",
+  "version": "0.1.0",
+  "description": "See how AI agents see your website.",
+  "type": "module",
+  "bin": {
+    "agentlens": "./dist/cli.js"
+  },
+  "main": "./dist/cli.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -b --pretty false",
+    "start": "node dist/cli.js"
+  },
+  "dependencies": {
+    "@agentlens/core": "workspace:*",
+    "@agentlens/shared": "workspace:*",
+    "commander": "^13.1.0"
+  }
+}

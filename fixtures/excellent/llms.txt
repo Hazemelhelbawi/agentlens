@@ -1,0 +1,6 @@
+# Acme Analytics
+> Documentation and API reference for Acme Analytics.
+
+## Docs
+- [Getting started](https://example.com/docs): Install and authenticate
+- [API](https://example.com/docs/api): REST endpoints

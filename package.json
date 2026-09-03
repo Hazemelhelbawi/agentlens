@@ -1,0 +1,32 @@
+{
+  "name": "agentlens-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "See how AI agents see your website. GitHub-first AI readiness analyzer.",
+  "type": "module",
+  "packageManager": "pnpm@10.6.5",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm -r --sort build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "typecheck": "tsc -b --pretty && pnpm --filter @agentlens/web typecheck",
+    "dev:web": "pnpm --filter @agentlens/web dev",
+    "agentlens": "pnpm --filter agentlens start"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.9",
+    "eslint": "^9.21.0",
+    "esbuild": "^0.25.1",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.0",
+    "vitest": "^3.0.8"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  }
+}
