@@ -15,6 +15,7 @@ import {
   canonicalRule,
   indexabilityRule,
 } from "./crawlability.js";
+import { interactiveRule } from "./interactive.js";
 import { linksRule } from "./links.js";
 import { llmsTxtRule, llmsFullTxtRule, aiCrawlersRule } from "./llm-discoverability.js";
 import { headingsRule, landmarksRule, imagesRule, formsRule } from "./semantic-html.js";
@@ -48,6 +49,7 @@ export const rules: AnalyzerRule[] = [
   llmsFullTxtRule,
   aiCrawlersRule,
   linksRule,
+  interactiveRule,
   agentUxRule,
   viewportRule,
   openGraphRule,

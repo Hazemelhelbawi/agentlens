@@ -4,10 +4,8 @@ export {
   normalizeUrl,
   isPrivateIp,
   isBlockedHostname,
-  isSameOrigin,
-  originOf,
-  resolveUrl,
 } from "./ssrf.js";
+export { isSameOrigin, originOf, resolveUrl } from "./url.js";
 export { resolvePublicAddresses, assertSafeDestination } from "./dns.js";
 export { fetchSafe } from "./fetch.js";
 export type { FetchOptions, FetchedResource } from "./fetch.js";

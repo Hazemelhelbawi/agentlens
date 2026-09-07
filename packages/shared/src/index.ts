@@ -10,6 +10,9 @@ export {
 export type { Category, Severity, Grade, KnownAiCrawler } from "./categories.js";
 
 export type {
+  EvidencePrecision,
+  InspectTarget,
+  DomStats,
   FindingEvidence,
   Finding,
   CategoryScore,
@@ -21,7 +24,32 @@ export type {
   SitemapAnalysis,
   LlmsTxtAnalysis,
   CrawlerAnalysis,
+  SeoCheckStatus,
+  FileFetchStatus,
+  CrawlerRuleStatus,
+  HeadingNode,
+  LinkIssue,
+  ImageIssue,
+  JsonLdBlock,
+  SitemapUrlEntry,
+  SeoUrlParts,
+  SeoFieldSnapshot,
+  SeoCanonicalSnapshot,
+  SeoRobotsMetaSnapshot,
+  SeoSnapshot,
+  LinkRecord,
+  LinkIndex,
+  ImageRecord,
+  ImageIndex,
+  SchemaSnapshot,
+  SitemapSnapshot,
+  RobotsSnapshot,
+  AnalyzedPage,
+  AnalysisInspection,
+  ScoreBreakdownRow,
+  AnalysisInsights,
   AnalysisResult,
+  AnalyzeStage,
   AnalyzeOptions,
 } from "./types.js";
 
@@ -32,6 +60,7 @@ export {
   DEFAULT_MAX_REDIRECTS,
   DEFAULT_CONCURRENCY,
   DEFAULT_MAX_PAGES,
+  ANALYZE_STAGES,
 } from "./types.js";
 
 export { findingSchema, analysisResultSchema } from "./schema.js";

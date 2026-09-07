@@ -3,16 +3,44 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: light;
+  --bg: #f4f4f5;
+  --raised: #ffffff;
+  --ink: #18181b;
+  --muted: #71717a;
+  --line: #e4e4e7;
+  --accent: #2563eb;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04);
+}
+
+html.dark {
   color-scheme: dark;
+  --bg: #0c0d10;
+  --raised: #14161b;
+  --ink: #ececef;
+  --muted: #9a9aa3;
+  --line: #2a2d35;
+  --accent: #3b82f6;
+  --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 8px 24px rgb(0 0 0 / 0.28);
 }
 
 html,
 body {
-  background: #0d1117;
-  color: #e6edf3;
+  background: var(--bg);
+  color: var(--ink);
 }
 
 ::selection {
-  background: #2f81f7;
+  background: var(--accent);
   color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

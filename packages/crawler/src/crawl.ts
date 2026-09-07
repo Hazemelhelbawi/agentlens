@@ -13,7 +13,7 @@ import { createLimiter } from "./limit.js";
 import { emptyLlmsTxt, parseLlmsTxt } from "./llms-txt.js";
 import { analyzeRobotsTxt, isPathAllowed } from "./robots.js";
 import { analyzeSitemap, parseSitemapXml } from "./sitemap.js";
-import { isSameOrigin, originOf, resolveUrl } from "./ssrf.js";
+import { isSameOrigin, originOf, resolveUrl } from "./url.js";
 
 export interface PageSnapshot {
   url: string;
@@ -93,6 +93,7 @@ function collectCandidateUrls(
 }
 
 export async function crawlWebsite(options: AnalyzeOptions): Promise<CrawlResult> {
+  options.onStage?.("connecting");
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   const maxResponseBytes = options.maxResponseBytes ?? DEFAULT_MAX_RESPONSE_BYTES;
   const userAgent = options.userAgent ?? DEFAULT_USER_AGENT;
@@ -101,9 +102,12 @@ export async function crawlWebsite(options: AnalyzeOptions): Promise<CrawlResult
   const fetchOpts = { timeoutMs, maxResponseBytes, userAgent };
 
   const homepageResource = await fetchSafe(options.url, fetchOpts);
+  options.onStage?.("fetching-homepage");
   const homepage = toSnapshot(homepageResource);
   const origin = originOf(homepage.finalUrl);
+  options.onStage?.("checking-https");
 
+  options.onStage?.("reading-robots");
   const [robotsRes, sitemapRes, llmsRes, llmsFullRes] = await Promise.all([
     fetchOptional(`${origin}/robots.txt`, fetchOpts),
     fetchOptional(`${origin}/sitemap.xml`, fetchOpts),
@@ -133,6 +137,7 @@ export async function crawlWebsite(options: AnalyzeOptions): Promise<CrawlResult
     }
   }
 
+  options.onStage?.("checking-sitemap");
   const sitemap = analyzeSitemap(sitemapBody, homepage.finalUrl, {
     statusCode: sitemapStatus,
     declaredInRobots: robots.sitemaps.length > 0,
@@ -148,6 +153,7 @@ export async function crawlWebsite(options: AnalyzeOptions): Promise<CrawlResult
       ? parseLlmsTxt(llmsFullRes.body, "/llms-full.txt", llmsFullRes.statusCode)
       : emptyLlmsTxt("/llms-full.txt", llmsFullRes?.statusCode);
 
+  options.onStage?.("checking-llms");
   const extraPages: PageSnapshot[] = [];
   if (maxPages > 0) {
     const robotsGroups = robots.groups;

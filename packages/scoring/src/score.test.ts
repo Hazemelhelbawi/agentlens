@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { failUnder, scoreFindings } from "./index.js";
+import { failUnder, projectScore, scoreFindings } from "./index.js";
 import type { Finding } from "@agentlens/shared";
 
 function f(partial: Partial<Finding> & Pick<Finding, "id" | "category" | "score" | "maxScore">): Finding {
@@ -52,6 +52,24 @@ describe("scoring", () => {
     expect(scoreFindings(make(70)).grade).toBe("fair");
     expect(scoreFindings(make(80)).grade).toBe("good");
     expect(scoreFindings(make(95)).grade).toBe("excellent");
+  });
+
+  it("projects a higher score when a failing check is treated as passed", () => {
+    const findings: Finding[] = [
+      f({ id: "a", category: "crawlability", score: 10, maxScore: 20, severity: "warning" }),
+      f({ id: "b", category: "content-access", score: 15, maxScore: 15 }),
+      f({ id: "c", category: "semantic-html", score: 15, maxScore: 15 }),
+      f({ id: "d", category: "structured-data", score: 15, maxScore: 15 }),
+      f({ id: "e", category: "llm-discoverability", score: 10, maxScore: 10 }),
+      f({ id: "f", category: "agent-ux", score: 15, maxScore: 15 }),
+      f({ id: "g", category: "technical-seo", score: 10, maxScore: 10 }),
+    ];
+    const current = scoreFindings(findings);
+    const projected = projectScore(findings, ["a"]);
+    expect(projected).toBeGreaterThan(current.score);
+    expect(current.findings.find((item) => item.id === "a")?.scoreImpact).toBeGreaterThan(0);
+    expect(current.breakdown).toHaveLength(7);
+    expect(current.insights.summary).toMatch(/scored/);
   });
 
   it("implements fail-under as score < threshold", () => {

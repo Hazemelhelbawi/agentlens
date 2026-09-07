@@ -43,4 +43,13 @@ describe("robots.txt parser", () => {
     const gpt = analysis.crawlers.find((c) => c.name === "GPTBot");
     expect(gpt?.status).toBe("restricted");
   });
+
+  it("collects Host and other directives without changing crawler scoring status", () => {
+    const parsed = parseRobotsTxt("User-agent: *\nAllow: /\nHost: example.com\nCrawl-delay: 8\n");
+    expect(parsed.host).toEqual(["example.com"]);
+    expect(parsed.otherDirectives).toEqual([{ field: "crawl-delay", value: "8" }]);
+    const analysis = analyzeRobotsTxt("User-agent: *\nAllow: /\nHost: example.com\n");
+    expect(analysis.host).toEqual(["example.com"]);
+    expect(analysis.crawlers.find((c) => c.name === "GPTBot")?.status).toBe("unspecified");
+  });
 });

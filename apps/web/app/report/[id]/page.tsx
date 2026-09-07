@@ -1,8 +1,31 @@
-import { analyzeWebsite, SsrfError } from "@agentlens/core";
-import { ReportView } from "@/components/report-view";
+import type { Metadata } from "next";
+import { ReportLoader } from "@/components/report/report-loader";
 import { decodeReportId } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  try {
+    const url = decodeReportId(id);
+    const host = new URL(url).hostname;
+    return {
+      title: `AgentLens report — ${host}`,
+      description: `Heuristic AI readiness report for ${url}. Not an official ranking from any AI provider or search engine.`,
+      openGraph: {
+        title: `AgentLens report — ${host}`,
+        description: `Deterministic machine-readability audit for ${url}`,
+        url: `/report/${id}`,
+      },
+    };
+  } catch {
+    return { title: "AgentLens report" };
+  }
+}
 
 export default async function ReportPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -13,21 +36,5 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
     return <p className="p-8 text-muted">Invalid report id.</p>;
   }
 
-  try {
-    const result = await analyzeWebsite({ url });
-    return <ReportView result={result} reportId={id} />;
-  } catch (error) {
-    const message =
-      error instanceof SsrfError
-        ? error.message
-        : error instanceof Error
-          ? error.message
-          : "Analysis failed.";
-    return (
-      <main className="mx-auto max-w-lg px-4 py-16">
-        <h1 className="text-xl font-semibold">Could not analyze this URL</h1>
-        <p className="mt-3 text-sm text-muted">{message}</p>
-      </main>
-    );
-  }
+  return <ReportLoader id={id} url={url} />;
 }

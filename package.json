@@ -13,9 +13,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
-    "typecheck": "tsc -b --pretty && pnpm --filter @agentlens/web typecheck",
+    "typecheck": "tsc -b --pretty && pnpm --filter @agentlens/web typecheck && pnpm --filter @agentlens/extension typecheck",
     "dev:web": "pnpm --filter @agentlens/web dev",
-    "agentlens": "pnpm --filter agentlens start"
+    "agentlens": "pnpm --filter agentlens start",
+    "extension:dev": "pnpm --filter @agentlens/extension dev",
+    "extension:build": "pnpm --filter @agentlens/extension build",
+    "extension:test": "pnpm --filter @agentlens/extension test"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

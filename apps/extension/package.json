@@ -1,0 +1,29 @@
+{
+  "name": "@agentlens/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ./build.mjs --watch",
+    "build": "node ./build.mjs",
+    "typecheck": "tsc -p tsconfig.json --pretty false --noEmit",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "dependencies": {
+    "@agentlens/analyzer": "workspace:*",
+    "@agentlens/scoring": "workspace:*",
+    "@agentlens/shared": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.2.0",
+    "@types/chrome": "^0.0.304",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "esbuild": "^0.25.1",
+    "happy-dom": "^17.4.4",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
+  }
+}

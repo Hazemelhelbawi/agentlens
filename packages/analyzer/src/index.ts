@@ -3,3 +3,8 @@ export { finding, visibleText } from "./types.js";
 export { rules, getRule, registerRule } from "./rules/index.js";
 export { runRules } from "./run.js";
 export { contextFromHtml } from "./fixture.js";
+export { buildInspection } from "./inspection.js";
+export { enrichFinding } from "./evidence.js";
+export { analyzeCollectedPage, crawlFromCollected, countDomStats } from "./snapshot.js";
+export type { CollectedPageInput } from "./snapshot.js";
+export { attachInspectTargets, collectInspectTargets, elementPath } from "./inspect.js";

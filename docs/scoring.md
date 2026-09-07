@@ -69,6 +69,6 @@ Agent UX is not a separate crawl. The `agent-ux` rule awards up to 20 points:
 | Exactly one H1 | 2 |
 | Unnamed / empty links ≤ 15% | 2 |
 
-The `links` rule also contributes to the Agent UX category.
+The `links` and `interactive` rules also contribute to the Agent UX category. `interactive` scores button accessible names (visible text, value, title, aria-label).
 
 Every overall point is therefore traceable to a finding id.

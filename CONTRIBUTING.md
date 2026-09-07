@@ -60,3 +60,5 @@ pnpm --filter @agentlens/action build
 ## Labels
 
 `good first issue`, `help wanted`, `analyzer`, `crawler`, `scoring`, `github-action`, `cli`, `web`, `documentation`, `security`
+
+Maintainer notes for GitHub description, topics, and social preview: [docs/github-repository.md](docs/github-repository.md).

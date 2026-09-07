@@ -3,6 +3,10 @@ import type { CrawlResult, PageSnapshot } from "@agentlens/crawler";
 import type { CrawlerAnalysis, TechnicalAnalysis } from "@agentlens/shared";
 import type { AnalyzerContext } from "./types.js";
 
+function utf8Bytes(text: string): number {
+  return new TextEncoder().encode(text).byteLength;
+}
+
 const emptyCrawler = (): CrawlerAnalysis => ({
   robotsTxt: {
     fetched: false,
@@ -55,7 +59,7 @@ export function contextFromHtml(
     html,
     $,
     headers: options.headers ?? { "content-type": "text/html; charset=utf-8" },
-    bytes: Buffer.byteLength(html),
+    bytes: utf8Bytes(html),
     responseTimeMs: 50,
   };
 

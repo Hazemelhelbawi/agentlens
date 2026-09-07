@@ -38,4 +38,13 @@ describe("sitemap parser", () => {
     const parsed = parseSitemapXml("<html>nope</html>", "https://example.com/");
     expect(parsed.validXml).toBe(false);
   });
+
+  it("parses sitemap indexes", () => {
+    const parsed = parseSitemapXml(
+      `<?xml version="1.0"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>https://example.com/posts.xml</loc></sitemap></sitemapindex>`,
+      "https://example.com/",
+    );
+    expect(parsed.isIndex).toBe(true);
+    expect(parsed.urls).toEqual([{ loc: "https://example.com/posts.xml", lastmod: undefined }]);
+  });
 });

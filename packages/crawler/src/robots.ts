@@ -5,12 +5,16 @@ export interface ParsedRobots {
   groups: RobotsGroup[];
   sitemaps: string[];
   parseErrors: string[];
+  host: string[];
+  otherDirectives: Array<{ field: string; value: string }>;
 }
 
 export function parseRobotsTxt(text: string): ParsedRobots {
   const groups: RobotsGroup[] = [];
   const sitemaps: string[] = [];
   const parseErrors: string[] = [];
+  const host: string[] = [];
+  const otherDirectives: Array<{ field: string; value: string }> = [];
 
   let current: RobotsGroup | null = null;
   let pendingUserAgents: string[] = [];
@@ -63,13 +67,21 @@ export function parseRobotsTxt(text: string): ParsedRobots {
       pendingUserAgents = [];
       continue;
     }
+
+    if (field === "host") {
+      if (value) host.push(value);
+      else parseErrors.push(`Line ${i + 1}: empty host`);
+      continue;
+    }
+
+    if (value) otherDirectives.push({ field, value });
   }
 
   if (current && current.userAgents.length > 0) {
     groups.push(current);
   }
 
-  return { groups, sitemaps, parseErrors };
+  return { groups, sitemaps, parseErrors, host, otherDirectives };
 }
 
 function longestMatchingRule(
@@ -172,6 +184,8 @@ export function analyzeRobotsTxt(
       parseErrors: [],
       groups: [],
       sitemaps: [],
+      host: [],
+      otherDirectives: [],
       crawlers: KNOWN_AI_CRAWLERS.map((name) => ({
         name,
         status: "unspecified" as const,
@@ -187,6 +201,38 @@ export function analyzeRobotsTxt(
     parseErrors: parsed.parseErrors,
     groups: parsed.groups,
     sitemaps: parsed.sitemaps,
-    crawlers: KNOWN_AI_CRAWLERS.map((name) => crawlerStatus(parsed.groups, name)),
+    host: parsed.host,
+    otherDirectives: parsed.otherDirectives,
+    crawlers: KNOWN_AI_CRAWLERS.map((name) => {
+      const access = crawlerStatus(parsed.groups, name);
+      const located = locateUserAgent(text, name);
+      return located.line || located.snippet
+        ? { ...access, ...located }
+        : access;
+    }),
   };
+}
+
+function locateUserAgent(
+  text: string,
+  name: string,
+): { snippet?: string; line?: number } {
+  const lines = text.split(/\r?\n/);
+  const target = `user-agent: ${name.toLowerCase()}`;
+  let start = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if ((lines[i] ?? "").trim().toLowerCase().startsWith(target)) {
+      start = i;
+      break;
+    }
+  }
+  if (start < 0) return {};
+  const chunk: string[] = [];
+  for (let i = start; i < lines.length; i++) {
+    const raw = lines[i] ?? "";
+    if (i > start && /^\s*user-agent:/i.test(raw)) break;
+    chunk.push(raw);
+    if (chunk.length >= 8) break;
+  }
+  return { snippet: chunk.join("\n").trim(), line: start + 1 };
 }

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@agentlens/crawler": "workspace:*",
+    "@agentlens/scoring": "workspace:*",
     "@agentlens/shared": "workspace:*",
     "cheerio": "^1.0.0"
   }

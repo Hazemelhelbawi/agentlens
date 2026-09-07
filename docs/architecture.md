@@ -1,16 +1,22 @@
 # Architecture
 
 ```text
-                    AgentLens Core
-                         │
-          ┌──────────────┼──────────────┐
-          │              │              │
-      GitHub Action     CLI          Web App
-          │              │              │
-          └──────────────┼──────────────┘
-                         │
-                    JSON Results
+                         AgentLens Core
+                              │
+             ┌────────────────┼────────────────┐
+             │                │                │
+        Chrome Extension   GitHub Action      CLI
+             │                │                │
+             └────────────────┼────────────────┘
+                              │
+                       Shared Analyzer
+                              │
+                       Shared Scoring
+                              │
+                         JSON Results
 ```
+
+The web app (`apps/web`) is another UI on the same core. It is not a second analyzer.
 
 | Path | Role |
 | --- | --- |
@@ -21,7 +27,8 @@
 | `packages/core` | `analyzeWebsite()` |
 | `packages/ai` | Optional explanations of existing findings |
 | `action/` | GitHub Action (bundled to `action/dist/index.cjs`) |
-| `cli/` | `npx agentlens` |
+| `cli/` | CLI (`node cli/dist/cli.js`, intended `npx agentlens`) |
+| `apps/extension` | Chrome Extension (current-tab UI) |
 | `apps/web` | Landing page, `/report/[id]`, `/api/badge` |
 
 `analyzeWebsite` never calls an LLM. AI adapters live behind `createAIProvider()` and require an explicit key.

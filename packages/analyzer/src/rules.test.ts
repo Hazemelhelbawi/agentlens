@@ -78,6 +78,16 @@ describe("analyzer rules", () => {
     expect(finding?.description).not.toMatch(/AI cannot read/);
   });
 
+  it("flags unnamed or generic buttons", async () => {
+    const [finding] = await run(
+      "interactive",
+      `<html><body><button>Click here</button><button aria-label="Start free trial"></button></body></html>`,
+    );
+    expect(finding?.id).toBe("interactive");
+    expect(finding?.description).toMatch(/Click here/);
+    expect(finding?.severity).not.toBe("pass");
+  });
+
   it("parses broken HTML without throwing", async () => {
     const findings = await runRules(contextFromHtml(load("broken-html/index.html")).crawl);
     expect(findings.length).toBeGreaterThan(0);
@@ -101,6 +111,22 @@ describe("analyzer rules", () => {
     const [finding] = await run("ai-crawlers", "<html></html>", { crawler: { robotsTxt: robots } });
     expect(finding?.description).toMatch(/GPTBot/);
     expect(finding?.severity).toBe("warning");
+  });
+
+  it("attaches location evidence without inventing line numbers", async () => {
+    const html = load("excellent/index.html");
+    const ctx = contextFromHtml(html);
+    const findings = await runRules(ctx.crawl);
+    const title = findings.find((f) => f.id === "title");
+    expect(title?.evidence?.selector).toBe("title");
+    expect(title?.evidence?.location).toBeTruthy();
+    expect(title?.whyItMatters).toMatch(/title/i);
+    if (title?.evidence?.line !== undefined) {
+      expect(title.evidence.line).toBeGreaterThan(0);
+      expect(title.evidence.precision).toBe("line");
+    } else {
+      expect(title?.evidence?.precision).not.toBe("line");
+    }
   });
 
   it("does not claim guaranteed access for unspecified crawlers", async () => {

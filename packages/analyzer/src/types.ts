@@ -1,5 +1,5 @@
 import type { CheerioAPI } from "cheerio";
-import type { Category, Finding, FindingEvidence, Severity } from "@agentlens/shared";
+import type { Category, Finding, FindingEvidence, InspectTarget, Severity } from "@agentlens/shared";
 import type { CrawlResult, PageSnapshot } from "@agentlens/crawler";
 
 export interface AnalyzerContext {
@@ -26,6 +26,12 @@ export function finding(
     maxScore: number;
     recommendation?: string;
     evidence?: FindingEvidence;
+    whyItMatters?: string;
+    recommendedFix?: string;
+    detectedSnippet?: string;
+    affectedPages?: string[];
+    scoreImpact?: number;
+    inspectTargets?: InspectTarget[];
   },
 ): Finding {
   return { ...partial };

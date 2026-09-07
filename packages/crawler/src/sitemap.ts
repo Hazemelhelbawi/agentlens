@@ -1,6 +1,6 @@
 import { load } from "cheerio";
 import type { SitemapAnalysis } from "@agentlens/shared";
-import { isSameOrigin } from "./ssrf.js";
+import { isSameOrigin } from "./url.js";
 
 export interface ParsedSitemapUrl {
   loc: string;

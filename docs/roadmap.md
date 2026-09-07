@@ -1,35 +1,29 @@
 # Roadmap
 
-## v0.1
+Completed items are only marked done when they exist in this repository.
+
+## Now
 
 - [x] Core analyzer
 - [x] Scoring engine
-- [x] robots.txt
-- [x] sitemap.xml
-- [x] metadata
-- [x] semantic HTML
-- [x] JSON-LD
-- [x] llms.txt
+- [x] robots.txt, sitemap.xml, metadata, semantic HTML, JSON-LD, llms.txt
 - [x] GitHub Action
 - [x] CLI
-
-## v0.2
-
 - [x] PR annotations (mapped files only)
-- [x] badges
-- [x] shareable reports
-- [ ] more analyzer rules
+- [x] Badges and shareable web reports
+- [x] Chrome Extension (SEO inspector + AI agent readiness on the current tab)
+- [ ] More analyzer rules
 
-## v0.3
+## Next
 
-- [ ] optional AI explanations
-- [ ] automated fix suggestions
-- [ ] browser extension
+- [ ] Additional analyzer rules and fixtures
+- [ ] Optional explanations of existing findings
+- [ ] Chrome Web Store listing
 
 ## Future
 
 - [ ] VS Code extension
-- [ ] historical scores
+- [ ] Historical scores
 - [ ] Lighthouse integration
-- [ ] repository-level analysis
-- [ ] more integrations
+- [ ] Repository-level analysis
+- [ ] More integrations

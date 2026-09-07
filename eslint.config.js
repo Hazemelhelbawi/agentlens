@@ -12,7 +12,30 @@ export default tseslint.config(
       "apps/web/next-env.d.ts",
       "apps/web/playwright.config.ts",
       "scripts/**",
+      "action/.build/**",
+      "apps/extension/dist/**",
+      "apps/extension/build.mjs",
     ],
+  },
+  {
+    files: ["apps/extension/**/*.{ts,tsx}"],
+    languageOptions: {
+      globals: {
+        chrome: "readonly",
+        window: "readonly",
+        document: "readonly",
+        CSS: "readonly",
+        HTMLAnchorElement: "readonly",
+        HTMLElement: "readonly",
+        Element: "readonly",
+        navigator: "readonly",
+        localStorage: "readonly",
+        Blob: "readonly",
+        URL: "readonly",
+        fetch: "readonly",
+        location: "readonly",
+      },
+    },
   },
   {
     rules: {
